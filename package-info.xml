@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "https://www.simplemachines.org/xml/package-info">
+<package-info xmlns="https://www.simplemachines.org/xml/package-info" xmlns:smf="https://www.simplemachines.org/">
+	<name>SocialLogin</name>
+	<id>Naytheet:SocialLogin</id>
+	<type>modification</type>
+	<version>1.0</version>
+
+	<install for="2.1.*">
+<!-- 		<readme type="file" parsebbc="true">readme.txt</readme> -->
+<!-- 		<database>db-install.php</database> -->
+		<modification>install-smf21.xml</modification>
+
+ 		<require-dir name="social_login" destination="." />
+		<require-file name="smf_2-1_api.php" destination="." />
+		<require-file name="agreement.spanish_es.txt" destination="." />
+		<require-file name="agreement.french.txt" destination="." />
+		<require-file name="SocialLoginNaytheet.english.php" destination="$languagedir" />
+		<require-file name="SocialLoginNaytheet.french.php" destination="$languagedir" />
+		<require-file name="SocialLoginNaytheet.spanish_es.php" destination="$languagedir" />
+	</install>
+
+	<uninstall for="2.1.*">
+		<modification reverse="true">install-smf21.xml</modification>
+ 		<remove-dir name="social_login"  />
+		<remove-file name="smf_2-1_api.php"/>
+		<remove-file name="agreement.spanish_es.txt"/>
+		<remove-file name="agreement.french.txt"/>
+		<remove-file name="$languagedir/SocialLoginNaytheet.english.php"/>
+		<remove-file name="$languagedir/SocialLoginNaytheet.french.php"/>
+		<remove-file name="$languagedir/SocialLoginNaytheet.spanish_es.php"/>
+	</uninstall>
+</package-info>

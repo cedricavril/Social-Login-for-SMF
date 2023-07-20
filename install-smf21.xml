@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "https://www.simplemachines.org/xml/modification">
+<modification xmlns="https://www.simplemachines.org/xml/modification" xmlns:smf="https://www.simplemachines.org/">
+	<name>SocialLogin</name>
+	<id>Naytheet:SocialLogin</id>
+	<version>0.1</version>
+	<file name="$boarddir/index.php">
+		<operation>
+			<search position="before"><![CDATA[// Register an error handler.
+set_error_handler('smf_error_handler');]]></search>
+			<add><![CDATA[
+// naytheet
+if (isset($_SESSION['connection_pb'])) {
+	loadLanguage('SocialLoginNaytheet');
+	require_once('smf_2-1_api.php');
+	social_login_2023();
+}
+// \naytheet
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/index.template.php">
+		<operation>
+			<search position="after"><![CDATA[/**
+ * The lower part of the maintenance warning box.
+ */
+]]></search>
+			<add><![CDATA[// naytheet
+function social_login() {
+	global $user_info, $txt, $context;
+
+	require_once('smf_2-1_api.php');
+
+	social_login_2023();
+}
+// \naytheet
+
+]]></add>
+		</operation>
+
+		<operation>
+
+		<search position="after"><![CDATA[echo '
+		</div><!-- .inner_wrap -->]]></search>
+			<add><![CDATA[// naytheet
+	// proceed to social login connection if root's index captured the social network name sent from social_login_** folder. 
+	loadLanguage('SocialLoginNaytheet');
+	if (isset($_SESSION['social_login'])) social_login();
+
+	if (!$context['user']['is_logged']) {
+		$path = dirname($scripturl);
+		echo '
+		<ul style="display:inline-block; width: 100%; text-align:center;"><li style="display: inline"><a href="', $path , '/social_login/', '?Facebook&path=' , $path , '"><img style="height: 2.5em; margin: 1px 5px" src="', $path, '/social_login/fb-signin-button.png' . '"></a></li><li style="display: inline"><a href="', $path . '/social_login/', '?LinkedIn&path=' , $path , '"><img style="height: 2.5em; margin: 1px 5px" src="', $path, '/social_login/li-signin-button.png' , '"></a></li></ul>';
+	}
+// \naytheet
+
+]]></add>
+		</operation>
+	</file>
+</modification>
